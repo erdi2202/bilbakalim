@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Bil Bakalım! 🎤</title>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --primary: #6C3CE1; --primary-dark: #5228B5; --secondary: #FF6B6B;
+    --accent: #FFD93D; --bg-dark: #1a1a2e; --bg-card: #16213e;
+    --bg-input: #0f3460; --text-light: #ffffff; --text-muted: #a0a0c0;
+    --success: #4ade80; --danger: #f87171; --gold: #FFD700;
+    --silver: #C0C0C0; --bronze: #CD7F32;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-dark); color: var(--text-light); min-height: 100vh; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+.screen { display: none; min-height: 100vh; padding: 16px; }
+.screen.active { display: flex; flex-direction: column; }
+.btn { border: none; border-radius: 12px; padding: 12px 24px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 1px; -webkit-user-select: none; user-select: none; }
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 15px rgba(108, 60, 225, 0.4); }
+.btn-large { padding: 16px 32px; font-size: 18px; width: 100%; max-width: 400px; }
+.btn-small { padding: 8px 16px; font-size: 13px; background: rgba(255,255,255,0.1); color: var(--text-light); border-radius: 8px; }
+.btn-speak { background: linear-gradient(135deg, var(--secondary), #e05555); color: white; font-size: 18px; padding: 14px 28px; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); animation: pulse-speak 2s infinite; }
+@keyframes pulse-speak { 0%, 100% { box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); } 50% { box-shadow: 0 4px 25px rgba(255, 107, 107, 0.7); } }
+.home-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; gap: 24px; padding: 20px; }
+.game-title { font-size: 48px; font-weight: 900; background: linear-gradient(135deg, var(--accent), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 3px; }
+.game-subtitle { font-size: 18px; color: var(--text-muted); margin-top: -12px; }
+.contestants-preview { background: var(--bg-card); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; }
+.contestants-preview p { color: var(--text-muted); margin-bottom: 12px; font-size: 14px; }
+.contestant-names { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.contestant-names span { background: rgba(108, 60, 225, 0.3); padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+.game-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; margin-bottom: 12px; }
+.round-info { font-size: 16px; font-weight: 700; color: var(--accent); }
+.question-area { margin-bottom: 20px; }
+.question-card { background: var(--bg-card); border-radius: 20px; padding: 24px; text-align: center; border: 2px solid rgba(108, 60, 225, 0.3); }
+.question-text { font-size: 20px; font-weight: 600; line-height: 1.5; margin-bottom: 16px; min-height: 60px; }
+.active-contestant-area { background: var(--bg-card); border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 2px solid var(--primary); }
+.active-contestant-name { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 12px; color: var(--accent); }
+.answer-input-group { display: flex; gap: 10px; }
+.answer-input { flex: 1; background: var(--bg-input); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 16px; font-size: 20px; color: white; text-align: center; font-weight: 700; outline: none; -webkit-appearance: none; }
+.answer-input:focus { border-color: var(--primary); }
+.answer-input::placeholder { color: var(--text-muted); font-size: 14px; font-weight: 400; }
+.contestants-queue { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 12px 0; }
+.queue-item { display: flex; align-items: center; gap: 6px; background: var(--bg-card); padding: 8px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; transition: all 0.3s; }
+.queue-item.active { background: var(--primary); transform: scale(1.05); }
+.queue-item.done { background: rgba(74, 222, 128, 0.2); color: var(--success); }
+.queue-item .queue-score { background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 8px; font-size: 12px; }
+.answer-result { position: fixed; inset: 0; z-index: 100; display: flex; }
+.answer-result.hidden { display: none; }
+.result-overlay { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; background: rgba(0,0,0,0.85); padding: 16px; }
+.result-card { background: var(--bg-card); border-radius: 24px; padding: 28px; width: 100%; max-width: 420px; text-align: center; animation: slideUp 0.4s ease; max-height: 90vh; overflow-y: auto; }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.result-card h2 { font-size: 20px; margin-bottom: 16px; color: var(--accent); }
+.result-correct { font-size: 18px; margin-bottom: 20px; padding: 12px; background: rgba(108, 60, 225, 0.2); border-radius: 12px; }
+.result-correct strong { color: var(--accent); font-size: 24px; display: block; margin-top: 4px; }
+.result-answers-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.result-answer-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(255,255,255,0.05); border-radius: 10px; font-size: 14px; }
+.result-answer-item.winner { background: rgba(74, 222, 128, 0.2); border: 2px solid var(--success); }
+.result-answer-item .name { font-weight: 700; }
+.result-answer-item .answer-val { font-weight: 600; color: var(--text-muted); }
+.result-answer-item .diff { font-size: 12px; color: var(--text-muted); }
+.result-winner { font-size: 22px; font-weight: 800; color: var(--success); margin-bottom: 16px; padding: 10px; }
+.scoreboard-container { display: flex; flex-direction: column; align-items: center; flex: 1; padding: 20px 0; gap: 20px; }
+.scoreboard-title { font-size: 28px; color: var(--accent); letter-spacing: 2px; }
+.scoreboard-list { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; }
+.scoreboard-item { display: flex; align-items: center; gap: 12px; background: var(--bg-card); padding: 14px 18px; border-radius: 14px; }
+.scoreboard-item .rank { font-size: 24px; font-weight: 900; width: 40px; text-align: center; }
+.scoreboard-item:nth-child(1) .rank { color: var(--gold); }
+.scoreboard-item:nth-child(2) .rank { color: var(--silver); }
+.scoreboard-item:nth-child(3) .rank { color: var(--bronze); }
+.scoreboard-item .sb-name { flex: 1; font-size: 18px; font-weight: 700; }
+.scoreboard-item .sb-score { font-size: 20px; font-weight: 800; color: var(--accent); }
+.end-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; gap: 16px; padding: 20px; }
+.end-title { font-size: 36px; color: var(--accent); letter-spacing: 3px; }
+.trophy { font-size: 80px; animation: bounce 1s ease infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+.winner-name { font-size: 32px; font-weight: 900; color: var(--success); }
+.winner-score { font-size: 20px; color: var(--text-muted); }
+.final-scoreboard { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.final-sb-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: var(--bg-card); border-radius: 10px; font-size: 16px; }
+.final-sb-item .f-rank { font-weight: 900; width: 30px; }
+.final-sb-item:nth-child(1) .f-rank { color: var(--gold); }
+.final-sb-item:nth-child(2) .f-rank { color: var(--silver); }
+.final-sb-item:nth-child(3) .f-rank { color: var(--bronze); }
+.final-sb-item .f-name { flex: 1; text-align: left; margin-left: 10px; font-weight: 600; }
+.final-sb-item .f-score { font-weight: 800; color: var(--accent); }
+.btn-speak.speaking { animation: none; background: linear-gradient(135deg, #e05555, var(--secondary)); box-shadow: 0 0 30px rgba(255, 107, 107, 0.6); }
+@media (max-width: 380px) { .game-title { font-size: 36px; } .question-text { font-size: 17px; } .answer-input { font-size: 18px; padding: 12px; } }
+    </style>
+</head>
+<body>
+    <div id="screen-home" class="screen active">
+        <div class="home-container">
+            <h1 class="game-title">BİL BAKALIM!</h1>
+            <p class="game-subtitle">Sesli Bilgi Yarışması</p>
+            <div class="contestants-preview">
+                <p>Yarışmacılar:</p>
+                <div class="contestant-names">
+                    <span>Akın</span><span>Ragıp</span><span>Birol</span><span>Harun</span>
+                    <span>Özge</span><span>Nuray</span><span>Annem</span>
+                </div>
+            </div>
+            <button id="btn-start" class="btn btn-primary btn-large">OYUNU BAŞLAT</button>
+        </div>
+    </div>
+    <div id="screen-game" class="screen">
+        <div class="game-header">
+            <div class="round-info">Soru <span id="question-number">1</span> / <span id="total-questions">15</span></div>
+            <button id="btn-scoreboard" class="btn btn-small">Skor Tablosu</button>
+        </div>
+        <div class="question-area">
+            <div class="question-card">
+                <div id="question-text" class="question-text">Soru yükleniyor...</div>
+                <button id="btn-speak" class="btn btn-speak" title="Soruyu sesli oku">🔊 Soruyu Oku</button>
+            </div>
+        </div>
+        <div class="active-contestant-area">
+            <div id="active-contestant-name" class="active-contestant-name">Yarışmacı</div>
+            <div class="answer-input-group">
+                <input type="number" id="answer-input" class="answer-input" placeholder="Cevabını gir..." inputmode="numeric">
+                <button id="btn-submit-answer" class="btn btn-primary">Cevapla</button>
+            </div>
+        </div>
+        <div class="contestants-queue" id="contestants-queue"></div>
+        <div id="answer-result" class="answer-result hidden">
+            <div class="result-overlay">
+                <div class="result-card">
+                    <h2 id="result-title">Sonuç</h2>
+                    <div id="result-correct-answer" class="result-correct">Doğru Cevap: <strong></strong></div>
+                    <div id="result-answers-list" class="result-answers-list"></div>
+                    <div id="result-winner" class="result-winner"></div>
+                    <button id="btn-next-question" class="btn btn-primary btn-large">Sonraki Soru →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="screen-scoreboard" class="screen">
+        <div class="scoreboard-container">
+            <h2 class="scoreboard-title">SKOR TABLOSU</h2>
+            <div id="scoreboard-list" class="scoreboard-list"></div>
+            <button id="btn-back-game" class="btn btn-primary btn-large">Oyuna Dön</button>
+        </div>
+    </div>
+    <div id="screen-end" class="screen">
+        <div class="end-container">
+            <h1 class="end-title">OYUN BİTTİ!</h1>
+            <div class="trophy">🏆</div>
+            <div id="winner-name" class="winner-name">Kazanan</div>
+            <div id="winner-score" class="winner-score">0 puan</div>
+            <div id="final-scoreboard" class="final-scoreboard"></div>
+            <button id="btn-restart" class="btn btn-primary btn-large">Tekrar Oyna</button>
+        </div>
+    </div>
+
+<script>
+const QUESTIONS = [
+    { question: "Türkiye'nin yüzölçümü kaç kilometrekaredir?", answer: 783562, unit: "km²" },
+    { question: "İstanbul'un nüfusu yaklaşık kaç milyondur?", answer: 16, unit: "milyon" },
+    { question: "Dünya üzerinde kaç ülke vardır?", answer: 195, unit: "ülke" },
+    { question: "Bir insanın vücudunda kaç kemik bulunur?", answer: 206, unit: "kemik" },
+    { question: "Everest Dağı'nın yüksekliği kaç metredir?", answer: 8849, unit: "metre" },
+    { question: "Ay, Dünya'ya kaç kilometre uzaklıktadır?", answer: 384400, unit: "km" },
+    { question: "Bir yılda kaç saat vardır?", answer: 8760, unit: "saat" },
+    { question: "Türkiye'de kaç il vardır?", answer: 81, unit: "il" },
+    { question: "İnsan vücudunun yüzde kaçı sudur?", answer: 60, unit: "%" },
+    { question: "Güneş'in yüzey sıcaklığı kaç derecedir?", answer: 5500, unit: "°C" },
+    { question: "Dünyanın en uzun nehri kaç kilometredir?", answer: 6650, unit: "km" },
+    { question: "Bir futbol sahası kaç metrekaredir?", answer: 7140, unit: "m²" },
+    { question: "Işık hızı saniyede kaç kilometredir?", answer: 300000, unit: "km/s" },
+    { question: "Türkiye Cumhuriyeti kaç yılında kurulmuştur?", answer: 1923, unit: "yıl" },
+    { question: "Bir olimpiyat havuzunun uzunluğu kaç metredir?", answer: 50, unit: "metre" },
+    { question: "İnsan kalbi dakikada ortalama kaç kez atar?", answer: 72, unit: "atım" },
+    { question: "Dünya'nın Güneş'e olan uzaklığı kaç milyon kilometredir?", answer: 150, unit: "milyon km" },
+    { question: "Büyük Okyanus'un en derin noktası kaç metredir?", answer: 11034, unit: "metre" },
+    { question: "Bir insanın günde ortalama kaç litre su içmesi gerekir?", answer: 2, unit: "litre" },
+    { question: "İstanbul Boğazı'nın en dar yeri kaç metredir?", answer: 700, unit: "metre" },
+    { question: "Çin Seddi'nin toplam uzunluğu kaç kilometredir?", answer: 21196, unit: "km" },
+    { question: "Bir deve susuz kaç gün yaşayabilir?", answer: 15, unit: "gün" },
+    { question: "Türkiye'nin en yüksek dağı Ağrı Dağı kaç metredir?", answer: 5137, unit: "metre" },
+    { question: "Bir satranç tahtasında kaç kare vardır?", answer: 64, unit: "kare" },
+    { question: "Van Gölü'nün yüzölçümü kaç kilometrekaredir?", answer: 3713, unit: "km²" },
+    { question: "Bir Afrika fili ortalama kaç kilogram ağırlığındadır?", answer: 6000, unit: "kg" },
+    { question: "FIFA Dünya Kupası ilk kez kaç yılında düzenlendi?", answer: 1930, unit: "yıl" },
+    { question: "Antarktika'da ölçülen en düşük sıcaklık kaç derecedir?", answer: -89, unit: "°C" },
+    { question: "İnsan beyninde yaklaşık kaç milyar nöron vardır?", answer: 86, unit: "milyar" },
+    { question: "Bir maraton yarışı kaç kilometredir?", answer: 42, unit: "km" }
+];
+
+const CONTESTANTS = ["Akın", "Ragıp", "Birol", "Harun", "Özge", "Nuray", "Annem"];
+const QUESTIONS_PER_GAME = 15;
+let gameState = { currentQuestionIndex: 0, currentContestantIndex: 0, questions: [], scores: {}, roundAnswers: [], allContestantsAnswered: false };
+
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+function shuffleArray(arr) { for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+
+function startGame() {
+    gameState.scores = {};
+    CONTESTANTS.forEach(c => gameState.scores[c] = 0);
+    gameState.questions = shuffleArray([...QUESTIONS]).slice(0, QUESTIONS_PER_GAME);
+    gameState.currentQuestionIndex = 0;
+    showScreen('screen-game');
+    document.getElementById('total-questions').textContent = gameState.questions.length;
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const q = gameState.questions[gameState.currentQuestionIndex];
+    gameState.currentContestantIndex = 0;
+    gameState.roundAnswers = [];
+    gameState.allContestantsAnswered = false;
+    document.getElementById('question-number').textContent = gameState.currentQuestionIndex + 1;
+    document.getElementById('question-text').textContent = q.question;
+    document.getElementById('answer-result').classList.add('hidden');
+    document.getElementById('answer-input').value = '';
+    updateActiveContestant();
+    renderContestantsQueue();
+    setTimeout(() => speakQuestion(), 500);
+}
+
+function speakQuestion() {
+    const q = gameState.questions[gameState.currentQuestionIndex];
+    const btn = document.getElementById('btn-speak');
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(q.question);
+        u.lang = 'tr-TR'; u.rate = 0.9; u.pitch = 1.0; u.volume = 1.0;
+        const setVoice = () => { const v = window.speechSynthesis.getVoices(); const t = v.find(x => x.lang.startsWith('tr')); if (t) u.voice = t; };
+        if (window.speechSynthesis.getVoices().length > 0) setVoice(); else window.speechSynthesis.onvoiceschanged = setVoice;
+        u.onstart = () => btn.classList.add('speaking');
+        u.onend = () => btn.classList.remove('speaking');
+        u.onerror = () => btn.classList.remove('speaking');
+        window.speechSynthesis.speak(u);
+    }
+}
+
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'tr-TR'; u.rate = 0.9;
+        const v = window.speechSynthesis.getVoices(); const t = v.find(x => x.lang.startsWith('tr')); if (t) u.voice = t;
+        window.speechSynthesis.speak(u);
+    }
+}
+
+function updateActiveContestant() {
+    document.getElementById('active-contestant-name').textContent = CONTESTANTS[gameState.currentContestantIndex] + " cevaplıyor...";
+    document.getElementById('answer-input').value = '';
+    document.getElementById('answer-input').focus();
+}
+
+function renderContestantsQueue() {
+    const queue = document.getElementById('contestants-queue');
+    queue.innerHTML = '';
+    CONTESTANTS.forEach((name, i) => {
+        const item = document.createElement('div');
+        item.className = 'queue-item';
+        if (i === gameState.currentContestantIndex && !gameState.allContestantsAnswered) item.classList.add('active');
+        else if (gameState.roundAnswers.find(a => a.name === name)) item.classList.add('done');
+        item.innerHTML = `<span>${name}</span><span class="queue-score">${gameState.scores[name]} p</span>`;
+        queue.appendChild(item);
+    });
+}
+
+function submitAnswer() {
+    const input = document.getElementById('answer-input');
+    const value = input.value.trim();
+    if (value === '' || isNaN(parseFloat(value))) { input.style.borderColor = '#f87171'; setTimeout(() => input.style.borderColor = 'rgba(255,255,255,0.1)', 1000); return; }
+    gameState.roundAnswers.push({ name: CONTESTANTS[gameState.currentContestantIndex], answer: parseFloat(value) });
+    gameState.currentContestantIndex++;
+    if (gameState.currentContestantIndex >= CONTESTANTS.length) { gameState.allContestantsAnswered = true; renderContestantsQueue(); showRoundResult(); }
+    else { updateActiveContestant(); renderContestantsQueue(); }
+}
+
+function formatNumber(n) { return n.toLocaleString('tr-TR'); }
+
+function showRoundResult() {
+    const q = gameState.questions[gameState.currentQuestionIndex];
+    const ca = q.answer;
+    const results = gameState.roundAnswers.map(a => ({ ...a, diff: Math.abs(a.answer - ca) })).sort((a, b) => a.diff - b.diff);
+    const winner = results[0];
+    gameState.scores[winner.name] += 1;
+    results.forEach(r => { if (r.diff === winner.diff && r.name !== winner.name) gameState.scores[r.name] += 1; });
+    document.getElementById('result-title').textContent = `Soru ${gameState.currentQuestionIndex + 1} Sonucu`;
+    document.getElementById('result-correct-answer').innerHTML = `Doğru Cevap: <strong>${formatNumber(ca)} ${q.unit}</strong>`;
+    const listEl = document.getElementById('result-answers-list');
+    listEl.innerHTML = '';
+    results.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'result-answer-item' + (r.diff === winner.diff ? ' winner' : '');
+        item.innerHTML = `<span class="name">${r.diff === winner.diff ? '✅ ' : ''}${r.name}</span><span class="answer-val">${formatNumber(r.answer)} ${q.unit}</span><span class="diff">(fark: ${formatNumber(r.diff)})</span>`;
+        listEl.appendChild(item);
+    });
+    const winners = results.filter(r => r.diff === winner.diff);
+    const winnerText = winners.length === 1 ? `🎉 ${winner.name} kazandı! (+1 puan)` : `🎉 ${winners.map(w => w.name).join(' & ')} kazandı! (+1 puan)`;
+    document.getElementById('result-winner').textContent = winnerText;
+    speakText(winnerText.replace('🎉 ', ''));
+    document.getElementById('answer-result').classList.remove('hidden');
+    document.getElementById('btn-next-question').textContent = gameState.currentQuestionIndex >= gameState.questions.length - 1 ? 'Sonuçları Gör 🏆' : 'Sonraki Soru →';
+}
+
+function nextQuestion() {
+    gameState.currentQuestionIndex++;
+    if (gameState.currentQuestionIndex >= gameState.questions.length) showEndScreen();
+    else loadQuestion();
+}
+
+function showScoreboard() {
+    renderScoreboardList('scoreboard-list');
+    showScreen('screen-scoreboard');
+}
+
+function renderScoreboardList(id) {
+    const c = document.getElementById(id); c.innerHTML = '';
+    Object.entries(gameState.scores).sort((a, b) => b[1] - a[1]).forEach(([name, score], i) => {
+        const item = document.createElement('div'); item.className = 'scoreboard-item';
+        item.innerHTML = `<span class="rank">${i + 1}</span><span class="sb-name">${name}</span><span class="sb-score">${score} puan</span>`;
+        c.appendChild(item);
+    });
+}
+
+function showEndScreen() {
+    const sorted = Object.entries(gameState.scores).sort((a, b) => b[1] - a[1]);
+    const [wn, ws] = sorted[0];
+    document.getElementById('winner-name').textContent = wn;
+    document.getElementById('winner-score').textContent = ws + ' puan';
+    const finalEl = document.getElementById('final-scoreboard'); finalEl.innerHTML = '';
+    sorted.forEach(([name, score], i) => {
+        const item = document.createElement('div'); item.className = 'final-sb-item';
+        item.innerHTML = `<span class="f-rank">${i + 1}.</span><span class="f-name">${name}</span><span class="f-score">${score} puan</span>`;
+        finalEl.appendChild(item);
+    });
+    showScreen('screen-end');
+    setTimeout(() => speakText(`Oyun bitti! Birinci ${wn}, ${ws} puanla kazandı. Tebrikler!`), 500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btn-start').addEventListener('click', startGame);
+    document.getElementById('btn-speak').addEventListener('click', speakQuestion);
+    document.getElementById('btn-submit-answer').addEventListener('click', submitAnswer);
+    document.getElementById('btn-next-question').addEventListener('click', nextQuestion);
+    document.getElementById('btn-scoreboard').addEventListener('click', showScoreboard);
+    document.getElementById('answer-input').addEventListener('keypress', e => { if (e.key === 'Enter') submitAnswer(); });
+    document.getElementById('btn-back-game').addEventListener('click', () => showScreen('screen-game'));
+    document.getElementById('btn-restart').addEventListener('click', () => showScreen('screen-home'));
+    if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
+});
+</script>
+</body>
+</html>
