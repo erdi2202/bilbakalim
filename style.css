@@ -1,0 +1,533 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6C3CE1;
+    --primary-dark: #5228B5;
+    --secondary: #FF6B6B;
+    --accent: #FFD93D;
+    --bg-dark: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-input: #0f3460;
+    --text-light: #ffffff;
+    --text-muted: #a0a0c0;
+    --success: #4ade80;
+    --danger: #f87171;
+    --gold: #FFD700;
+    --silver: #C0C0C0;
+    --bronze: #CD7F32;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Ekranlar */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 16px;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Butonlar */
+.btn {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 15px rgba(108, 60, 225, 0.4);
+}
+
+.btn-primary:active {
+    box-shadow: 0 2px 8px rgba(108, 60, 225, 0.3);
+}
+
+.btn-large {
+    padding: 16px 32px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 13px;
+    background: rgba(255,255,255,0.1);
+    color: var(--text-light);
+    border-radius: 8px;
+}
+
+.btn-speak {
+    background: linear-gradient(135deg, var(--secondary), #e05555);
+    color: white;
+    font-size: 18px;
+    padding: 14px 28px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    animation: pulse-speak 2s infinite;
+}
+
+@keyframes pulse-speak {
+    0%, 100% { box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); }
+    50% { box-shadow: 0 4px 25px rgba(255, 107, 107, 0.7); }
+}
+
+/* ============ ANA EKRAN ============ */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    gap: 24px;
+    padding: 20px;
+}
+
+.game-title {
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: 3px;
+}
+
+.game-subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-top: -12px;
+}
+
+.contestants-preview {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.contestants-preview p {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.contestant-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.contestant-names span {
+    background: rgba(108, 60, 225, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ============ OYUN EKRANI ============ */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    margin-bottom: 12px;
+}
+
+.round-info {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Soru Alanı */
+.question-area {
+    margin-bottom: 20px;
+}
+
+.question-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    border: 2px solid rgba(108, 60, 225, 0.3);
+}
+
+.question-text {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    min-height: 60px;
+}
+
+/* Aktif Yarışmacı */
+.active-contestant-area {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 2px solid var(--primary);
+}
+
+.active-contestant-name {
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 12px;
+    color: var(--accent);
+}
+
+.answer-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.answer-input {
+    flex: 1;
+    background: var(--bg-input);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.answer-input:focus {
+    border-color: var(--primary);
+}
+
+.answer-input::placeholder {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Yarışmacı Sırası */
+.contestants-queue {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.queue-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-card);
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.queue-item.active {
+    background: var(--primary);
+    transform: scale(1.05);
+}
+
+.queue-item.done {
+    background: rgba(74, 222, 128, 0.2);
+    color: var(--success);
+}
+
+.queue-item .queue-score {
+    background: rgba(255,255,255,0.15);
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+/* Cevap Sonucu Overlay */
+.answer-result {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+}
+
+.answer-result.hidden {
+    display: none;
+}
+
+.result-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    padding: 16px;
+}
+
+.result-card {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 28px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    animation: slideUp 0.4s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.result-card h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: var(--accent);
+}
+
+.result-correct {
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: rgba(108, 60, 225, 0.2);
+    border-radius: 12px;
+}
+
+.result-correct strong {
+    color: var(--accent);
+    font-size: 24px;
+    display: block;
+    margin-top: 4px;
+}
+
+.result-answers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.result-answer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.result-answer-item.winner {
+    background: rgba(74, 222, 128, 0.2);
+    border: 2px solid var(--success);
+}
+
+.result-answer-item .name {
+    font-weight: 700;
+}
+
+.result-answer-item .answer-val {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.result-answer-item .diff {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.result-winner {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--success);
+    margin-bottom: 16px;
+    padding: 10px;
+}
+
+/* ============ SKOR TABLOSU ============ */
+.scoreboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.scoreboard-title {
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 2px;
+}
+
+.scoreboard-list {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.scoreboard-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-card);
+    padding: 14px 18px;
+    border-radius: 14px;
+    transition: all 0.3s;
+}
+
+.scoreboard-item .rank {
+    font-size: 24px;
+    font-weight: 900;
+    width: 40px;
+    text-align: center;
+}
+
+.scoreboard-item:nth-child(1) .rank { color: var(--gold); }
+.scoreboard-item:nth-child(2) .rank { color: var(--silver); }
+.scoreboard-item:nth-child(3) .rank { color: var(--bronze); }
+
+.scoreboard-item .sb-name {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.scoreboard-item .sb-score {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+/* ============ OYUN SONU ============ */
+.end-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    gap: 16px;
+    padding: 20px;
+}
+
+.end-title {
+    font-size: 36px;
+    color: var(--accent);
+    letter-spacing: 3px;
+}
+
+.trophy {
+    font-size: 80px;
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.winner-name {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--success);
+}
+
+.winner-score {
+    font-size: 20px;
+    color: var(--text-muted);
+}
+
+.final-scoreboard {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.final-sb-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.final-sb-item .f-rank {
+    font-weight: 900;
+    width: 30px;
+}
+
+.final-sb-item:nth-child(1) .f-rank { color: var(--gold); }
+.final-sb-item:nth-child(2) .f-rank { color: var(--silver); }
+.final-sb-item:nth-child(3) .f-rank { color: var(--bronze); }
+
+.final-sb-item .f-name {
+    flex: 1;
+    text-align: left;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.final-sb-item .f-score {
+    font-weight: 800;
+    color: var(--accent);
+}
+
+/* Speaking animation */
+.btn-speak.speaking {
+    animation: none;
+    background: linear-gradient(135deg, #e05555, var(--secondary));
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 380px) {
+    .game-title { font-size: 36px; }
+    .question-text { font-size: 17px; }
+    .answer-input { font-size: 18px; padding: 12px; }
+}

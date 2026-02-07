@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Bil Bakalım! 🎤</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Ana Ekran -->
+    <div id="screen-home" class="screen active">
+        <div class="home-container">
+            <h1 class="game-title">BİL BAKALIM!</h1>
+            <p class="game-subtitle">Sesli Bilgi Yarışması</p>
+            <div class="contestants-preview">
+                <p>Yarışmacılar:</p>
+                <div class="contestant-names">
+                    <span>Akın</span><span>Ragıp</span><span>Birol</span><span>Harun</span>
+                    <span>Özge</span><span>Nuray</span><span>Annem</span>
+                </div>
+            </div>
+            <button id="btn-start" class="btn btn-primary btn-large">OYUNU BAŞLAT</button>
+        </div>
+    </div>
+
+    <!-- Oyun Ekranı -->
+    <div id="screen-game" class="screen">
+        <div class="game-header">
+            <div class="round-info">Soru <span id="question-number">1</span> / <span id="total-questions">15</span></div>
+            <button id="btn-scoreboard" class="btn btn-small">Skor Tablosu</button>
+        </div>
+
+        <!-- Soru Alanı -->
+        <div class="question-area">
+            <div class="question-card">
+                <div id="question-text" class="question-text">Soru yükleniyor...</div>
+                <button id="btn-speak" class="btn btn-speak" title="Soruyu sesli oku">
+                    🔊 Soruyu Oku
+                </button>
+            </div>
+        </div>
+
+        <!-- Aktif Yarışmacı -->
+        <div class="active-contestant-area">
+            <div id="active-contestant-name" class="active-contestant-name">Yarışmacı</div>
+            <div class="answer-input-group">
+                <input type="number" id="answer-input" class="answer-input" placeholder="Cevabını gir..." inputmode="numeric">
+                <button id="btn-submit-answer" class="btn btn-primary">Cevapla</button>
+            </div>
+        </div>
+
+        <!-- Yarışmacı Sırası -->
+        <div class="contestants-queue" id="contestants-queue">
+            <!-- JS ile doldurulacak -->
+        </div>
+
+        <!-- Cevap Sonucu -->
+        <div id="answer-result" class="answer-result hidden">
+            <div class="result-overlay">
+                <div class="result-card">
+                    <h2 id="result-title">Sonuç</h2>
+                    <div id="result-correct-answer" class="result-correct">Doğru Cevap: <strong></strong></div>
+                    <div id="result-answers-list" class="result-answers-list"></div>
+                    <div id="result-winner" class="result-winner"></div>
+                    <button id="btn-next-question" class="btn btn-primary btn-large">Sonraki Soru →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skor Tablosu Ekranı -->
+    <div id="screen-scoreboard" class="screen">
+        <div class="scoreboard-container">
+            <h2 class="scoreboard-title">SKOR TABLOSU</h2>
+            <div id="scoreboard-list" class="scoreboard-list"></div>
+            <button id="btn-back-game" class="btn btn-primary btn-large">Oyuna Dön</button>
+        </div>
+    </div>
+
+    <!-- Oyun Sonu Ekranı -->
+    <div id="screen-end" class="screen">
+        <div class="end-container">
+            <h1 class="end-title">OYUN BİTTİ!</h1>
+            <div class="trophy">🏆</div>
+            <div id="winner-name" class="winner-name">Kazanan</div>
+            <div id="winner-score" class="winner-score">0 puan</div>
+            <div id="final-scoreboard" class="final-scoreboard"></div>
+            <button id="btn-restart" class="btn btn-primary btn-large">Tekrar Oyna</button>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
