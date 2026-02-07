@@ -1,182 +1,286 @@
 const QUESTIONS = [
-    {
-        question: "Türkiye'nin yüzölçümü kaç kilometrekaredir?",
-        answer: 783562,
-        unit: "km²",
-        hint: "Rakamla cevap verin"
-    },
-    {
-        question: "İstanbul'un nüfusu yaklaşık kaç milyondur?",
-        answer: 16,
-        unit: "milyon",
-        hint: "Milyon cinsinden"
-    },
-    {
-        question: "Dünya üzerinde kaç ülke vardır?",
-        answer: 195,
-        unit: "ülke",
-        hint: "BM üyesi dahil"
-    },
-    {
-        question: "Bir insanın vücudunda kaç kemik bulunur?",
-        answer: 206,
-        unit: "kemik",
-        hint: "Yetişkin bir insanda"
-    },
-    {
-        question: "Everest Dağı'nın yüksekliği kaç metredir?",
-        answer: 8849,
-        unit: "metre",
-        hint: "Metre cinsinden"
-    },
-    {
-        question: "Ay, Dünya'ya kaç kilometre uzaklıktadır?",
-        answer: 384400,
-        unit: "km",
-        hint: "Bin kilometre cinsinden düşünün"
-    },
-    {
-        question: "Bir yılda kaç saat vardır?",
-        answer: 8760,
-        unit: "saat",
-        hint: "365 gün üzerinden"
-    },
-    {
-        question: "Türkiye'de kaç il vardır?",
-        answer: 81,
-        unit: "il",
-        hint: "Plaka kodu en yüksek olan..."
-    },
-    {
-        question: "İnsan vücudunun yüzde kaçı sudur?",
-        answer: 60,
-        unit: "%",
-        hint: "Yüzde olarak"
-    },
-    {
-        question: "Güneş'in yüzey sıcaklığı kaç derecedir?",
-        answer: 5500,
-        unit: "°C",
-        hint: "Celsius derece cinsinden"
-    },
-    {
-        question: "Dünyanın en uzun nehri kaç kilometredir?",
-        answer: 6650,
-        unit: "km",
-        hint: "Nil Nehri, km cinsinden"
-    },
-    {
-        question: "Bir futbol sahası kaç metrekaredir?",
-        answer: 7140,
-        unit: "m²",
-        hint: "FIFA standart ölçüleri"
-    },
-    {
-        question: "Işık hızı saniyede kaç kilometredir?",
-        answer: 300000,
-        unit: "km/s",
-        hint: "Bin km cinsinden düşünün"
-    },
-    {
-        question: "Türkiye Cumhuriyeti kaç yılında kurulmuştur?",
-        answer: 1923,
-        unit: "yıl",
-        hint: "Yıl olarak"
-    },
-    {
-        question: "Bir olimpiyat havuzunun uzunluğu kaç metredir?",
-        answer: 50,
-        unit: "metre",
-        hint: "Metre cinsinden"
-    },
-    {
-        question: "İnsan kalbi dakikada ortalama kaç kez atar?",
-        answer: 72,
-        unit: "atım",
-        hint: "Dakikada kaç atım"
-    },
-    {
-        question: "Dünya'nın Güneş'e olan uzaklığı kaç milyon kilometredir?",
-        answer: 150,
-        unit: "milyon km",
-        hint: "Milyon km cinsinden"
-    },
-    {
-        question: "Büyük Okyanus'un en derin noktası kaç metredir?",
-        answer: 11034,
-        unit: "metre",
-        hint: "Mariana Çukuru"
-    },
-    {
-        question: "Bir insanın günde ortalama kaç litre su içmesi gerekir?",
-        answer: 2,
-        unit: "litre",
-        hint: "Litre cinsinden"
-    },
-    {
-        question: "İstanbul Boğazı'nın en dar yeri kaç metredir?",
-        answer: 700,
-        unit: "metre",
-        hint: "Metre cinsinden"
-    },
-    {
-        question: "Çin Seddi'nin toplam uzunluğu kaç kilometredir?",
-        answer: 21196,
-        unit: "km",
-        hint: "Tüm kollar dahil"
-    },
-    {
-        question: "Bir deve günde susuz kaç gün yaşayabilir?",
-        answer: 15,
-        unit: "gün",
-        hint: "Gün sayısı"
-    },
-    {
-        question: "Türkiye'nin en yüksek dağı Ağrı Dağı kaç metredir?",
-        answer: 5137,
-        unit: "metre",
-        hint: "Metre cinsinden"
-    },
-    {
-        question: "Bir satranç tahtasında kaç kare vardır?",
-        answer: 64,
-        unit: "kare",
-        hint: "8x8 tahta"
-    },
-    {
-        question: "Van Gölü'nün yüzölçümü kaç kilometrekaredir?",
-        answer: 3713,
-        unit: "km²",
-        hint: "Türkiye'nin en büyük gölü"
-    },
-    {
-        question: "Bir Afrika fili ortalama kaç kilogram ağırlığındadır?",
-        answer: 6000,
-        unit: "kg",
-        hint: "Kilogram cinsinden"
-    },
-    {
-        question: "FIFA Dünya Kupası ilk kez kaç yılında düzenlendi?",
-        answer: 1930,
-        unit: "yıl",
-        hint: "Yıl olarak"
-    },
-    {
-        question: "Antarktika'da ölçülen en düşük sıcaklık kaç derecedir?",
-        answer: -89,
-        unit: "°C",
-        hint: "Eksi derece, Celsius"
-    },
-    {
-        question: "İnsan beyninde yaklaşık kaç milyar nöron vardır?",
-        answer: 86,
-        unit: "milyar",
-        hint: "Milyar cinsinden"
-    },
-    {
-        question: "Bir marathon yarışı kaç kilometredir?",
-        answer: 42,
-        unit: "km",
-        hint: "Tam sayı olarak km"
-    }
+    // === COĞRAFYA ===
+    { question: "Türkiye'nin yüzölçümü kaç kilometrekaredir?", answer: 783562, unit: "km²" },
+    { question: "Dünya üzerinde kaç ülke vardır?", answer: 195, unit: "ülke" },
+    { question: "Everest Dağı'nın yüksekliği kaç metredir?", answer: 8849, unit: "metre" },
+    { question: "Dünyanın en uzun nehri Nil kaç kilometredir?", answer: 6650, unit: "km" },
+    { question: "Türkiye'de kaç il vardır?", answer: 81, unit: "il" },
+    { question: "İstanbul Boğazı'nın en dar yeri kaç metredir?", answer: 700, unit: "metre" },
+    { question: "Çin Seddi'nin toplam uzunluğu kaç kilometredir?", answer: 21196, unit: "km" },
+    { question: "Türkiye'nin en yüksek dağı Ağrı Dağı kaç metredir?", answer: 5137, unit: "metre" },
+    { question: "Van Gölü'nün yüzölçümü kaç kilometrekaredir?", answer: 3713, unit: "km²" },
+    { question: "Sahara Çölü'nün yüzölçümü kaç milyon kilometrekaredir?", answer: 9, unit: "milyon km²" },
+    { question: "Amazon Nehri'nin uzunluğu kaç kilometredir?", answer: 6400, unit: "km" },
+    { question: "Rusya'nın yüzölçümü kaç milyon kilometrekaredir?", answer: 17, unit: "milyon km²" },
+    { question: "Büyük Okyanus'un en derin noktası kaç metredir?", answer: 11034, unit: "metre" },
+    { question: "Dünya'nın çevresi kaç kilometredir?", answer: 40075, unit: "km" },
+    { question: "Karadeniz'in en derin noktası kaç metredir?", answer: 2212, unit: "metre" },
+    { question: "Tuz Gölü'nün yüzölçümü kaç kilometrekaredir?", answer: 1665, unit: "km²" },
+    { question: "Akdeniz'in en derin noktası kaç metredir?", answer: 5267, unit: "metre" },
+    { question: "Antarktika'nın yüzölçümü kaç milyon kilometrekaredir?", answer: 14, unit: "milyon km²" },
+    { question: "Niagara Şelalesi'nin yüksekliği kaç metredir?", answer: 51, unit: "metre" },
+    { question: "Baykal Gölü'nün derinliği kaç metredir?", answer: 1642, unit: "metre" },
+    { question: "Kızılırmak'ın uzunluğu kaç kilometredir?", answer: 1355, unit: "km" },
+    { question: "Fırat Nehri'nin toplam uzunluğu kaç kilometredir?", answer: 2800, unit: "km" },
+    { question: "Mont Blanc'ın yüksekliği kaç metredir?", answer: 4808, unit: "metre" },
+    { question: "Hazar Denizi'nin yüzölçümü kaç bin kilometrekaredir?", answer: 371, unit: "bin km²" },
+    { question: "Angel Şelalesi'nin yüksekliği kaç metredir?", answer: 979, unit: "metre" },
+
+    // === NÜFUS & ŞEHİRLER ===
+    { question: "İstanbul'un nüfusu yaklaşık kaç milyondur?", answer: 16, unit: "milyon" },
+    { question: "Dünya nüfusu yaklaşık kaç milyardır?", answer: 8, unit: "milyar" },
+    { question: "Çin'in nüfusu yaklaşık kaç milyardır?", answer: 1.4, unit: "milyar" },
+    { question: "Tokyo'nun nüfusu yaklaşık kaç milyondur?", answer: 14, unit: "milyon" },
+    { question: "Ankara'nın nüfusu yaklaşık kaç milyondur?", answer: 5.7, unit: "milyon" },
+    { question: "Hindistan'ın nüfusu yaklaşık kaç milyardır?", answer: 1.4, unit: "milyar" },
+    { question: "Almanya'nın nüfusu yaklaşık kaç milyondur?", answer: 84, unit: "milyon" },
+    { question: "Brezilya'nın nüfusu yaklaşık kaç milyondur?", answer: 215, unit: "milyon" },
+    { question: "İzmir'in nüfusu yaklaşık kaç milyondur?", answer: 4.5, unit: "milyon" },
+    { question: "Mısır'ın nüfusu yaklaşık kaç milyondur?", answer: 105, unit: "milyon" },
+    { question: "Bursa'nın nüfusu yaklaşık kaç milyondur?", answer: 3.2, unit: "milyon" },
+    { question: "New York şehrinin nüfusu yaklaşık kaç milyondur?", answer: 8.3, unit: "milyon" },
+    { question: "Antalya'nın nüfusu yaklaşık kaç milyondur?", answer: 2.7, unit: "milyon" },
+
+    // === BİLİM & UZAY ===
+    { question: "Işık hızı saniyede kaç kilometredir?", answer: 300000, unit: "km/s" },
+    { question: "Ay, Dünya'ya kaç kilometre uzaklıktadır?", answer: 384400, unit: "km" },
+    { question: "Dünya'nın Güneş'e olan uzaklığı kaç milyon kilometredir?", answer: 150, unit: "milyon km" },
+    { question: "Güneş'in yüzey sıcaklığı kaç derecedir?", answer: 5500, unit: "°C" },
+    { question: "Bir insanın vücudunda kaç kemik bulunur?", answer: 206, unit: "kemik" },
+    { question: "İnsan vücudunun yüzde kaçı sudur?", answer: 60, unit: "%" },
+    { question: "İnsan beyninde yaklaşık kaç milyar nöron vardır?", answer: 86, unit: "milyar" },
+    { question: "İnsan kalbi dakikada ortalama kaç kez atar?", answer: 72, unit: "atım" },
+    { question: "Bir insanın günde ortalama kaç litre su içmesi gerekir?", answer: 2, unit: "litre" },
+    { question: "Dünya'nın yaşı yaklaşık kaç milyar yıldır?", answer: 4.5, unit: "milyar yıl" },
+    { question: "Ses hızı saniyede kaç metredir?", answer: 343, unit: "m/s" },
+    { question: "Mars'ın Dünya'ya en yakın mesafesi kaç milyon kilometredir?", answer: 55, unit: "milyon km" },
+    { question: "Güneş Sistemi'nde kaç gezegen vardır?", answer: 8, unit: "gezegen" },
+    { question: "Bir insan ömründe ortalama kaç kez nefes alır?", answer: 700, unit: "milyon" },
+    { question: "İnsan kanı saniyede kaç metre hızla akar?", answer: 0.5, unit: "m/s" },
+    { question: "Jüpiter'in kaç uydusu vardır?", answer: 95, unit: "uydu" },
+    { question: "DNA'nın çift sarmal yapısı kaç yılında keşfedildi?", answer: 1953, unit: "yıl" },
+    { question: "İnsan vücudunda kaç litre kan bulunur?", answer: 5, unit: "litre" },
+    { question: "Bir insan günde ortalama kaç kalori yakar?", answer: 2000, unit: "kalori" },
+    { question: "İnsan saçı ayda ortalama kaç santimetre uzar?", answer: 1.25, unit: "cm" },
+    { question: "Güneş'in çapı kaç bin kilometredir?", answer: 1392, unit: "bin km" },
+    { question: "Dünya'nın çekirdeğinin sıcaklığı yaklaşık kaç derecedir?", answer: 5500, unit: "°C" },
+    { question: "Samanyolu galaksisinde yaklaşık kaç milyar yıldız vardır?", answer: 200, unit: "milyar" },
+
+    // === TARİH ===
+    { question: "Türkiye Cumhuriyeti kaç yılında kurulmuştur?", answer: 1923, unit: "yıl" },
+    { question: "İstanbul'un fethi kaç yılındadır?", answer: 1453, unit: "yıl" },
+    { question: "Fransız İhtilali kaç yılında olmuştur?", answer: 1789, unit: "yıl" },
+    { question: "İlk Dünya Savaşı kaç yılında başlamıştır?", answer: 1914, unit: "yıl" },
+    { question: "İkinci Dünya Savaşı kaç yılında bitmiştir?", answer: 1945, unit: "yıl" },
+    { question: "Amerika kaç yılında keşfedilmiştir?", answer: 1492, unit: "yıl" },
+    { question: "Ay'a ilk insan kaç yılında ayak basmıştır?", answer: 1969, unit: "yıl" },
+    { question: "Berlin Duvarı kaç yılında yıkılmıştır?", answer: 1989, unit: "yıl" },
+    { question: "Osmanlı İmparatorluğu kaç yılında kurulmuştur?", answer: 1299, unit: "yıl" },
+    { question: "Kurtuluş Savaşı kaç yılında başlamıştır?", answer: 1919, unit: "yıl" },
+    { question: "Matbaanın icadı yaklaşık kaç yılındadır?", answer: 1440, unit: "yıl" },
+    { question: "Osmanlı İmparatorluğu kaç yıl sürmüştür?", answer: 623, unit: "yıl" },
+    { question: "Titanik kaç yılında batmıştır?", answer: 1912, unit: "yıl" },
+    { question: "Çanakkale Savaşı kaç yılındadır?", answer: 1915, unit: "yıl" },
+    { question: "İlk olimpiyat oyunları kaç yılında düzenlenmiştir?", answer: 1896, unit: "yıl" },
+    { question: "Süveyş Kanalı kaç yılında açılmıştır?", answer: 1869, unit: "yıl" },
+    { question: "Mısır piramitlerinin yapımı yaklaşık kaç yıl önce başlamıştır?", answer: 4500, unit: "yıl" },
+
+    // === SPOR ===
+    { question: "FIFA Dünya Kupası ilk kez kaç yılında düzenlendi?", answer: 1930, unit: "yıl" },
+    { question: "Bir futbol sahası kaç metrekaredir?", answer: 7140, unit: "m²" },
+    { question: "Bir olimpiyat havuzunun uzunluğu kaç metredir?", answer: 50, unit: "metre" },
+    { question: "Bir maraton yarışı kaç kilometredir?", answer: 42, unit: "km" },
+    { question: "Bir futbol maçı kaç dakikadır?", answer: 90, unit: "dakika" },
+    { question: "Usain Bolt'un 100 metre dünya rekoru kaç saniyedir?", answer: 9.58, unit: "saniye" },
+    { question: "Bir basketbol sahası kaç metre uzunluğundadır?", answer: 28, unit: "metre" },
+    { question: "Bir tenis kortunun uzunluğu kaç metredir?", answer: 24, unit: "metre" },
+    { question: "Galatasaray kaç yılında kurulmuştur?", answer: 1905, unit: "yıl" },
+    { question: "Fenerbahçe kaç yılında kurulmuştur?", answer: 1907, unit: "yıl" },
+    { question: "Beşiktaş kaç yılında kurulmuştur?", answer: 1903, unit: "yıl" },
+    { question: "FIFA Dünya Kupası'nı en çok kazanan takım kaç kez kazanmıştır?", answer: 5, unit: "kez" },
+    { question: "Bir voleybol setinde kaç sayıya kadar oynanır?", answer: 25, unit: "sayı" },
+    { question: "100 metre dünya rekoru yaklaşık kaç km/saat hıza denk gelir?", answer: 37, unit: "km/saat" },
+    { question: "Bir golf sahasında kaç delik vardır?", answer: 18, unit: "delik" },
+    { question: "Bir buz hokeyi maçı kaç periyottan oluşur?", answer: 3, unit: "periyot" },
+    { question: "Trabzonspor kaç yılında kurulmuştur?", answer: 1967, unit: "yıl" },
+
+    // === GENEL KÜLTÜR ===
+    { question: "Bir yılda kaç saat vardır?", answer: 8760, unit: "saat" },
+    { question: "Bir satranç tahtasında kaç kare vardır?", answer: 64, unit: "kare" },
+    { question: "Bir deve susuz kaç gün yaşayabilir?", answer: 15, unit: "gün" },
+    { question: "Bir Afrika fili ortalama kaç kilogram ağırlığındadır?", answer: 6000, unit: "kg" },
+    { question: "Antarktika'da ölçülen en düşük sıcaklık kaç derecedir?", answer: -89, unit: "°C" },
+    { question: "Bir arı saatte kaç kilometre hızla uçar?", answer: 25, unit: "km/saat" },
+    { question: "Bir insanın ortalama ömrü dünya genelinde kaç yıldır?", answer: 73, unit: "yıl" },
+    { question: "Bir piyanoda kaç tuş vardır?", answer: 88, unit: "tuş" },
+    { question: "Eiffel Kulesi'nin yüksekliği kaç metredir?", answer: 330, unit: "metre" },
+    { question: "Bir yılda kaç saniye vardır?", answer: 31536000, unit: "saniye" },
+    { question: "Bir insan günde ortalama kaç adım atar?", answer: 7500, unit: "adım" },
+    { question: "Bir çita saatte kaç kilometre hızla koşar?", answer: 112, unit: "km/saat" },
+    { question: "Bir haftada kaç dakika vardır?", answer: 10080, unit: "dakika" },
+    { question: "Mona Lisa tablosu kaç yılında yapılmıştır?", answer: 1503, unit: "yıl" },
+    { question: "Dünyanın en yüksek binası kaç metredir?", answer: 828, unit: "metre" },
+    { question: "Bir şişe su kaç mililitredir?", answer: 500, unit: "ml" },
+    { question: "Bir fil kaç yıl yaşar?", answer: 70, unit: "yıl" },
+    { question: "Bir köpek kaç yıl yaşar ortalama?", answer: 13, unit: "yıl" },
+    { question: "Bir kedi kaç yıl yaşar ortalama?", answer: 15, unit: "yıl" },
+    { question: "Guinness Dünya Rekorları ilk kez kaç yılında yayınlandı?", answer: 1955, unit: "yıl" },
+
+    // === MATEMATİK & SAYILAR ===
+    { question: "Pi sayısının ilk iki basamağı kaçtır?", answer: 3.14, unit: "" },
+    { question: "Bir düzinede kaç adet vardır?", answer: 12, unit: "adet" },
+    { question: "Bir gross kaç adettir?", answer: 144, unit: "adet" },
+    { question: "Roma rakamlarında M kaçtır?", answer: 1000, unit: "" },
+    { question: "Altın oranın yaklaşık değeri kaçtır?", answer: 1.618, unit: "" },
+
+    // === TEKNOLOJİ ===
+    { question: "İlk iPhone kaç yılında çıkmıştır?", answer: 2007, unit: "yıl" },
+    { question: "Facebook kaç yılında kurulmuştur?", answer: 2004, unit: "yıl" },
+    { question: "İnternet kaç yılında halka açılmıştır?", answer: 1991, unit: "yıl" },
+    { question: "İlk e-posta kaç yılında gönderilmiştir?", answer: 1971, unit: "yıl" },
+    { question: "Google kaç yılında kurulmuştur?", answer: 1998, unit: "yıl" },
+    { question: "YouTube kaç yılında kurulmuştur?", answer: 2005, unit: "yıl" },
+    { question: "Wikipedia kaç yılında kurulmuştur?", answer: 2001, unit: "yıl" },
+    { question: "İlk bilgisayar faresi kaç yılında icat edilmiştir?", answer: 1964, unit: "yıl" },
+    { question: "WhatsApp kaç yılında kurulmuştur?", answer: 2009, unit: "yıl" },
+    { question: "Instagram kaç yılında kurulmuştur?", answer: 2010, unit: "yıl" },
+    { question: "Twitter kaç yılında kurulmuştur?", answer: 2006, unit: "yıl" },
+    { question: "İlk web sitesi kaç yılında yayına girmiştir?", answer: 1991, unit: "yıl" },
+    { question: "Spotify kaç yılında kurulmuştur?", answer: 2006, unit: "yıl" },
+    { question: "Netflix kaç yılında kurulmuştur?", answer: 1997, unit: "yıl" },
+    { question: "TikTok kaç yılında yayınlanmıştır?", answer: 2016, unit: "yıl" },
+
+    // === YEMEK & İÇECEK ===
+    { question: "Bir bardak çayda yaklaşık kaç kalori vardır?", answer: 2, unit: "kalori" },
+    { question: "Bir dilim pizzada yaklaşık kaç kalori vardır?", answer: 270, unit: "kalori" },
+    { question: "Bir hamburger yaklaşık kaç kaloridir?", answer: 354, unit: "kalori" },
+    { question: "Bir muz yaklaşık kaç kaloridir?", answer: 105, unit: "kalori" },
+    { question: "Bir elma yaklaşık kaç kaloridir?", answer: 95, unit: "kalori" },
+    { question: "Bir yumurta yaklaşık kaç kaloridir?", answer: 78, unit: "kalori" },
+    { question: "Bir kutu kola kaç mililitredir?", answer: 330, unit: "ml" },
+    { question: "Suyun kaynama noktası kaç derecedir?", answer: 100, unit: "°C" },
+    { question: "Suyun donma noktası kaç derecedir?", answer: 0, unit: "°C" },
+
+    // === HAYVANLAR ===
+    { question: "Bir mavi balina kaç ton ağırlığındadır?", answer: 150, unit: "ton" },
+    { question: "Bir zürafa kaç metre boyundadır?", answer: 5.5, unit: "metre" },
+    { question: "Bir kartal saatte kaç kilometre hızla uçabilir?", answer: 160, unit: "km/saat" },
+    { question: "Bir ahtapotun kaç kalbi vardır?", answer: 3, unit: "kalp" },
+    { question: "Bir kangurunun zıplama hızı saatte kaç kilometredir?", answer: 56, unit: "km/saat" },
+    { question: "Bir albatros'un kanat açıklığı kaç metredir?", answer: 3.5, unit: "metre" },
+    { question: "Bir timsahın ısırma kuvveti kaç kilogramdır?", answer: 1800, unit: "kg" },
+    { question: "Bir koala günde kaç saat uyur?", answer: 22, unit: "saat" },
+    { question: "Bir tavuk yılda ortalama kaç yumurta bırakır?", answer: 260, unit: "yumurta" },
+    { question: "Bir yunus saatte kaç kilometre hızla yüzebilir?", answer: 60, unit: "km/saat" },
+    { question: "Bir karıncanın vücut ağırlığının kaç katı yük taşıyabilir?", answer: 50, unit: "kat" },
+    { question: "Bir flamingonun ömrü yaklaşık kaç yıldır?", answer: 40, unit: "yıl" },
+    { question: "Bir penguen saatte kaç km hızla yüzebilir?", answer: 36, unit: "km/saat" },
+    { question: "Bir aslanın kükremesi kaç kilometre uzaktan duyulur?", answer: 8, unit: "km" },
+    { question: "Bir papağan kaç yıl yaşayabilir?", answer: 80, unit: "yıl" },
+    { question: "Bir kolibri kuşunun kalbi dakikada kaç kez atar?", answer: 1200, unit: "atım" },
+
+    // === ÜLKELER & BAYRAKLAR ===
+    { question: "Türkiye'nin kaç komşu ülkesi vardır?", answer: 8, unit: "ülke" },
+    { question: "Avrupa Birliği'nde kaç üye ülke vardır?", answer: 27, unit: "ülke" },
+    { question: "Afrika kıtasında kaç ülke vardır?", answer: 54, unit: "ülke" },
+    { question: "ABD kaç eyaletten oluşur?", answer: 50, unit: "eyalet" },
+    { question: "BM Güvenlik Konseyi'nde kaç daimi üye vardır?", answer: 5, unit: "üye" },
+    { question: "NATO'da kaç üye ülke vardır?", answer: 32, unit: "ülke" },
+    { question: "Japonya kaç adadan oluşur?", answer: 6852, unit: "ada" },
+    { question: "Endonezya kaç adadan oluşur?", answer: 17508, unit: "ada" },
+
+    // === YAPITLAR & BİNALAR ===
+    { question: "Özgürlük Heykeli'nin yüksekliği kaç metredir?", answer: 93, unit: "metre" },
+    { question: "Pisa Kulesi kaç derece eğiktir?", answer: 4, unit: "derece" },
+    { question: "Selimiye Camii kaç yılında yapılmıştır?", answer: 1575, unit: "yıl" },
+    { question: "Ayasofya kaç yılında inşa edilmiştir?", answer: 537, unit: "yıl" },
+    { question: "Big Ben saat kulesinin yüksekliği kaç metredir?", answer: 96, unit: "metre" },
+    { question: "Boğaziçi Köprüsü kaç metre uzunluğundadır?", answer: 1560, unit: "metre" },
+    { question: "Panama Kanalı'nın uzunluğu kaç kilometredir?", answer: 82, unit: "km" },
+    { question: "Keops Piramidi'nin yüksekliği kaç metredir?", answer: 146, unit: "metre" },
+    { question: "Galata Kulesi'nin yüksekliği kaç metredir?", answer: 67, unit: "metre" },
+    { question: "Çamlıca Kulesi'nin yüksekliği kaç metredir?", answer: 369, unit: "metre" },
+
+    // === EKONOMİ & PARA ===
+    { question: "Bir ons altın yaklaşık kaç gramdır?", answer: 31, unit: "gram" },
+    { question: "Dünyanın en pahalı şehri listesinde İstanbul kaçıncı sıradadır yaklaşık?", answer: 130, unit: "sıra" },
+    { question: "Türkiye'nin yıllık turist sayısı yaklaşık kaç milyondur?", answer: 50, unit: "milyon" },
+
+    // === MÜZİK & SANAT ===
+    { question: "Beethoven kaç yılında doğmuştur?", answer: 1770, unit: "yıl" },
+    { question: "Mozart kaç yaşında ölmüştür?", answer: 35, unit: "yaş" },
+    { question: "Bir gitarda kaç tel vardır?", answer: 6, unit: "tel" },
+    { question: "Bir standart orkestrada yaklaşık kaç müzisyen bulunur?", answer: 90, unit: "müzisyen" },
+    { question: "Bir udda kaç tel grubu vardır?", answer: 6, unit: "grup" },
+
+    // === SAĞLIK & İNSAN VÜCUDU ===
+    { question: "Normal vücut sıcaklığı kaç derecedir?", answer: 36.6, unit: "°C" },
+    { question: "Bir yetişkinin kaç dişi vardır?", answer: 32, unit: "diş" },
+    { question: "İnsan vücudunda kaç kas bulunur?", answer: 640, unit: "kas" },
+    { question: "Bir insanın en uzun kemiği olan uyluk kemiği ortalama kaç santimetredir?", answer: 48, unit: "cm" },
+    { question: "Normal tansiyon üst değeri kaçtır?", answer: 120, unit: "mmHg" },
+    { question: "İnsan vücudunda kaç kromozom bulunur?", answer: 46, unit: "kromozom" },
+    { question: "Bir insanın toplam kan damarları uç uca eklenirse kaç bin km eder?", answer: 100, unit: "bin km" },
+    { question: "İnsan beyni kaç gram ağırlığındadır?", answer: 1400, unit: "gram" },
+    { question: "Bir insan ömründe ortalama kaç yıl uyur?", answer: 25, unit: "yıl" },
+    { question: "İnsan gözü kaç megapiksel çözünürlüğe eşdeğerdir?", answer: 576, unit: "megapiksel" },
+
+    // === FİZİK & KİMYA ===
+    { question: "Periyodik tabloda kaç element vardır?", answer: 118, unit: "element" },
+    { question: "Suyun kimyasal formülündeki hidrojen atomu sayısı kaçtır?", answer: 2, unit: "atom" },
+    { question: "Altının atom numarası kaçtır?", answer: 79, unit: "" },
+    { question: "Mutlak sıfır kaç derece Celsius'tur?", answer: -273, unit: "°C" },
+    { question: "Yerçekimi ivmesi yaklaşık kaç m/s²'dir?", answer: 9.8, unit: "m/s²" },
+    { question: "Bir atmosfer basıncı kaç Pascal'dır?", answer: 101325, unit: "Pa" },
+
+    // === ULAŞIM ===
+    { question: "Bir yolcu uçağı saatte yaklaşık kaç km hızla uçar?", answer: 900, unit: "km/saat" },
+    { question: "Dünyanın en hızlı treni saatte kaç km hız yapar?", answer: 603, unit: "km/saat" },
+    { question: "İstanbul-Ankara arası kaç kilometredir?", answer: 450, unit: "km" },
+    { question: "İstanbul-İzmir arası kaç kilometredir?", answer: 565, unit: "km" },
+    { question: "İstanbul Havalimanı'nın yıllık yolcu kapasitesi kaç milyondur?", answer: 200, unit: "milyon" },
+    { question: "Dünyanın en uzun tüneli kaç kilometredir?", answer: 57, unit: "km" },
+    { question: "Marmaray tünelinin uzunluğu kaç kilometredir?", answer: 13.6, unit: "km" },
+    { question: "Avrasya Tüneli'nin uzunluğu kaç kilometredir?", answer: 5.4, unit: "km" },
+
+    // === EĞİTİM & DİL ===
+    { question: "Türk alfabesinde kaç harf vardır?", answer: 29, unit: "harf" },
+    { question: "İngiliz alfabesinde kaç harf vardır?", answer: 26, unit: "harf" },
+    { question: "Dünyada yaklaşık kaç dil konuşulmaktadır?", answer: 7000, unit: "dil" },
+    { question: "Çince kaç farklı karakter içerir yaklaşık?", answer: 50000, unit: "karakter" },
+
+    // === RAKAMLARI TAHMİN ET ===
+    { question: "Bir insanın ömründe ortalama kaç kez göz kırpar?", answer: 500, unit: "milyon" },
+    { question: "Dünyada günde kaç milyon ton yiyecek israf edilir?", answer: 1.3, unit: "milyon ton" },
+    { question: "Bir arı bir kilogram bal için kaç bin çiçeği ziyaret eder?", answer: 4, unit: "milyon" },
+    { question: "İnsan vücudunda kaç trilyon hücre bulunur?", answer: 37, unit: "trilyon" },
+    { question: "Dünyada günde kaç milyon e-posta gönderilir?", answer: 300, unit: "milyar" },
+    { question: "Bir ağaç yılda ortalama kaç kilogram oksijen üretir?", answer: 100, unit: "kg" },
+    { question: "Dünyada kaç milyon köpek bulunmaktadır yaklaşık?", answer: 500, unit: "milyon" },
+    { question: "Amazon ormanları dünyanın oksijeninin yüzde kaçını üretir?", answer: 6, unit: "%" },
+    { question: "Bir insan ömründe ortalama kaç ton yemek yer?", answer: 35, unit: "ton" },
+
+    // === TÜRK KÜLTÜRÜ ===
+    { question: "Türkiye'de kaç UNESCO Dünya Mirası alanı vardır?", answer: 21, unit: "alan" },
+    { question: "Kapadokya'nın yeraltı şehirleri kaç kat derinliktedir?", answer: 8, unit: "kat" },
+    { question: "Topkapı Sarayı kaç yılında inşa edilmiştir?", answer: 1478, unit: "yıl" },
+    { question: "Türk kahvesinin UNESCO kültürel mirası listesine alındığı yıl?", answer: 2013, unit: "yıl" },
+    { question: "Efes Antik Kenti kaç yıl önce kurulmuştur?", answer: 3000, unit: "yıl" },
+    { question: "Göbeklitepe kaç bin yıl öncesine aittir?", answer: 12, unit: "bin yıl" },
+    { question: "Türkiye'de yılda kişi başı kaç bardak çay tüketilir?", answer: 1300, unit: "bardak" },
+    { question: "Türkiye kaç farklı denize kıyısı vardır?", answer: 4, unit: "deniz" },
+    { question: "Pamukkale travertenlerinin yüksekliği kaç metredir?", answer: 160, unit: "metre" },
+    { question: "Nemrut Dağı'ndaki heykeller kaç metre yüksekliğindedir?", answer: 9, unit: "metre" },
+
+    // === EKSTRA SORULAR ===
+    { question: "Dünyanın en büyük okyanusu kaç milyon km²'dir?", answer: 165, unit: "milyon km²" },
+    { question: "Bir insanın en hızlı koşabileceği hız yaklaşık kaç km/saattir?", answer: 45, unit: "km/saat" },
+    { question: "Dünyada yılda kaç milyon bebek doğar?", answer: 140, unit: "milyon" },
+    { question: "Bir buzdolabının ortalama sıcaklığı kaç derecedir?", answer: 4, unit: "°C" },
+    { question: "İnsan kulağı kaç desibel üstü sesi duyabilir?", answer: 0, unit: "desibel" },
+    { question: "Bir basketbol potasının yüksekliği kaç metredir?", answer: 3.05, unit: "metre" },
+    { question: "Bir Boeing 747 uçağının kanat açıklığı kaç metredir?", answer: 64, unit: "metre" },
+    { question: "Bir ay yaklaşık kaç gündür?", answer: 30, unit: "gün" },
+    { question: "Bir futbol topunun çevresi kaç santimetredir?", answer: 69, unit: "cm" },
+    { question: "Dünyanın en soğuk başkenti kaç derecedir kışın ortalama?", answer: -25, unit: "°C" }
 ];

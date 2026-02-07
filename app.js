@@ -1,7 +1,7 @@
 // ========== BİL BAKALIM - Sesli Bilgi Yarışması ==========
 
 const CONTESTANTS = ["Akın", "Ragıp", "Birol", "Harun", "Özge", "Nuray", "Annem"];
-const QUESTIONS_PER_GAME = 15;
+const QUESTIONS_PER_GAME = 20;
 
 let gameState = {
     currentQuestionIndex: 0,
