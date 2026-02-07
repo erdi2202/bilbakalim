@@ -1,6 +1,6 @@
 // ========== BİL BAKALIM - Sesli Bilgi Yarışması ==========
 
-const CONTESTANTS = ["Akın", "Ragıp", "Birol", "Harun", "Özge", "Nuray", "Annem"];
+const CONTESTANTS = ["Akın", "Ragıp", "Birol", "Özge", "Nuray", "Annem"];
 const QUESTIONS_PER_GAME = 20;
 
 let gameState = {
@@ -44,6 +44,12 @@ function shuffleArray(arr) {
 // ========== SORU YÜKLEME ==========
 function loadQuestion() {
     const q = gameState.questions[gameState.currentQuestionIndex];
+    // Her soruda farklı kişi başlasın - sırayı kaydır
+    gameState.contestantOrder = [...CONTESTANTS];
+    const shift = gameState.currentQuestionIndex % CONTESTANTS.length;
+    for (let i = 0; i < shift; i++) {
+        gameState.contestantOrder.push(gameState.contestantOrder.shift());
+    }
     gameState.currentContestantIndex = 0;
     gameState.roundAnswers = [];
     gameState.allContestantsAnswered = false;
@@ -99,7 +105,7 @@ function speakQuestion() {
 
 // ========== YARIŞMACI YÖNETİMİ ==========
 function updateActiveContestant() {
-    const name = CONTESTANTS[gameState.currentContestantIndex];
+    const name = gameState.contestantOrder[gameState.currentContestantIndex];
     document.getElementById('active-contestant-name').textContent = name + " cevaplıyor...";
     document.getElementById('answer-input').value = '';
     document.getElementById('answer-input').focus();
@@ -109,7 +115,7 @@ function renderContestantsQueue() {
     const queue = document.getElementById('contestants-queue');
     queue.innerHTML = '';
 
-    CONTESTANTS.forEach((name, i) => {
+    gameState.contestantOrder.forEach((name, i) => {
         const item = document.createElement('div');
         item.className = 'queue-item';
 
@@ -145,13 +151,13 @@ function submitAnswer() {
         return;
     }
 
-    const name = CONTESTANTS[gameState.currentContestantIndex];
+    const name = gameState.contestantOrder[gameState.currentContestantIndex];
     gameState.roundAnswers.push({ name, answer });
 
     // Sonraki yarışmacıya geç
     gameState.currentContestantIndex++;
 
-    if (gameState.currentContestantIndex >= CONTESTANTS.length) {
+    if (gameState.currentContestantIndex >= gameState.contestantOrder.length) {
         // Tüm yarışmacılar cevapladı
         gameState.allContestantsAnswered = true;
         renderContestantsQueue();
